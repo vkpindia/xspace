@@ -1,0 +1,54 @@
+<div class="block-copnatiner">
+  <h2>SpaceX Launch Programs</h2>
+
+  <div class="spx-block">
+    <div class="spx-filter" *ngIf="!isLoading">
+      <div class="filter-inner">
+        <h4>Filters</h4>
+        <ng-container *ngFor="let filter of filterData">
+          <div class="filter-block">
+            <span class="filter-heading">{{filter.filterHeading | titlecase}}</span>
+            <ul>
+              <li *ngFor="let filterBase of filter.filterBase">
+                <span (click)="setQueryParams(filter.type, filterBase)"
+                  [ngClass]="{'active': (selectedFilter == filterBase) && (selectedFilterType==filter.type)}">{{filterBase | titlecase}}</span>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="spx-programs">
+      <h4 class="loading" *ngIf="isLoading">Loading...</h4>
+      <h3 class="loading" *ngIf="spaceXProgramList && spaceXProgramList.length==0">SpaceX Programs not found.</h3>
+      <ng-container *ngFor="let list of spaceXProgramList">
+        <div class="program-card">
+          <div class="program-img">
+            <img [src]="list.links.mission_patch_small" alt="">
+          </div>
+          <div class="mission"><span>{{list.mission_name+' '+'#'+list.flight_number}}</span></div>
+          <div class="program-details">
+            <p><strong>Mission Ids: </strong></p>
+            <ul>
+              <li *ngFor="let id of list.mission_id">{{id}}</li>
+            </ul>
+            <table>
+              <tr>
+                <td><strong>Launch Year: </strong></td>
+                <td class="launch-info">{{list.launch_success}}</td>
+              </tr>
+              <tr>
+                <td><strong>Successful Launch: </strong></td>
+                <td class="launch-info">{{list.launch_success}}</td>
+              </tr>
+              <tr>
+                <td><strong>Successful Landing: </strong></td>
+                <td class="launch-info"> {{list.launch_year}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
