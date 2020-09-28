@@ -14,19 +14,19 @@ body {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        @media(max-width: 700px){
+        @media (max-width: 700px) {
           flex-direction: column;
         }
         .spx-filter {
           flex: 0 0 19%;
-          @media(max-width: 1024px){
+          @media (max-width: 1024px) {
             flex: 0 0 23%;
           }
           .filter-inner {
             background-color: #fff;
             padding: 15px;
             border-radius: 5px;
-            @media(max-width: 700px){
+            @media (max-width: 700px) {
               margin-bottom: 15px;
             }
           }
@@ -61,8 +61,12 @@ body {
                   padding: 2px 10px;
                   font-size: 14px;
                   border-radius: 3px;
-                  &.active{
-                    background-color: #7BBA01;
+                  cursor: pointer;
+                  &.active {
+                    background-color: #7bba01;
+                  }
+                  &:hover {
+                    background-color: #7bba01;
                   }
                 }
               }
@@ -75,15 +79,22 @@ body {
           // justify-content: space-between;
           flex-wrap: wrap;
           // margin-right: -14px;
-          position: relative;
+          // position: relative;
           // justify-content: center;
-          @media(max-width: 1024px) {
+          @media (max-width: 1024px) {
             flex: 0 0 75%;
           }
-          .loading{
+          .loading {
             position: absolute;
             top: 50%;
             left: 50%;
+            @media (max-width: 700px) {
+              position: relative;
+              top: 50%;
+              width: 100%;
+              left: 0;
+              text-align: center;
+            }
           }
           .program-card {
             flex: 0 0 20.5%;
@@ -94,17 +105,17 @@ body {
             font-size: 14px;
             margin-right: 14px;
 
-          @media(max-width: 1252px){
-            flex: 0 0 19.2%;
-          }
-          @media(max-width: 1024px){
-            flex: 0 0 41%;
-          }
-          @media(max-width: 700px){
-            flex: 0 0 95%;
-            margin-right: 0;
-            padding: 12px;
-          }
+            @media (max-width: 1252px) {
+              flex: 0 0 19.2%;
+            }
+            @media (max-width: 1024px) {
+              flex: 0 0 41%;
+            }
+            @media (max-width: 700px) {
+              flex: 0 0 95%;
+              margin-right: 0;
+              padding: 12px;
+            }
             .mission {
               color: #5c65a2;
               font-weight: 600;

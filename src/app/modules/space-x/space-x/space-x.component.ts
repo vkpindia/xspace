@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SpaceXService } from '../../../services/space-x.service';
 import { filerData, FilterT, FilterQueryParamT } from '../../../models/filter';
 import { SpaceXRocordT } from '../../../models/scpacex.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-space-x',
@@ -18,8 +18,14 @@ export class SpaceXComponent implements OnInit {
   public isLoading: boolean;
   public selectedFilter: string;
   public selectedFilterType: string;
+  public url: string;
 
-  constructor(private router: Router, private ss: SpaceXService) { }
+  constructor(private router: Router, private ar: ActivatedRoute, private ss: SpaceXService) {
+    this.ar.queryParamMap.subscribe(queryParam => {
+      this.url = queryParam['params'].url;
+      console.log('this.url ', this.url);
+    });
+  }
 
   ngOnInit(): void {
     this.filterData = filerData;
@@ -29,10 +35,17 @@ export class SpaceXComponent implements OnInit {
       launch_success: '',
       land_success: ''
     };
-
+    console.log(' this.url', this.url);
     this.getSpaceXData();
   }
 
+  /**
+   * @description Method for making query param for api
+   * @author Virendra Pandey
+   * @date 2020-09-27
+   * @returns {void}
+   * @memberof SpaceXComponent
+   */
   public setQueryParams(type: string, value: any): void {
     this.selectedFilter = value;
     this.selectedFilterType = type;
@@ -59,10 +72,10 @@ export class SpaceXComponent implements OnInit {
       url = url + '&launch_year=' + this.queryParam.launch_year;
     }
     if (url) {
-      this.router.navigate(['spaceX'], { queryParams: { url: url } });
+      this.router.navigate(['spaceX'], { queryParams: { url: url ? url : this.url } });
     }
     // console.log('url', url);
-    this.ss.getSpaceXData(url).subscribe(data => {
+    this.ss.getSpaceXData(url ? url : this.url).subscribe(data => {
       if (data) {
         this.spaceXProgramList = data;
         this.isLoading = false;
