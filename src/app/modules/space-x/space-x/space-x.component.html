@@ -9,9 +9,9 @@
           <div class="filter-block">
             <span class="filter-heading">{{filter.filterHeading | titlecase}}</span>
             <ul>
-              <li *ngFor="let filterBase of filter.filterBase">
-                <span (click)="setQueryParams(filter.type, filterBase)"
-                  [ngClass]="{'active': (selectedFilter == filterBase) && (selectedFilterType==filter.type)}">{{filterBase | titlecase}}</span>
+              <li *ngFor="let filterBase of filter.filterBase"><!-- (selectedFilter == filterBase) && (selectedFilterType==filter.type) -->
+                <span (click)="setQueryParams(filter.type, filterBase.value)"
+                  [ngClass]="{'active': filterBase.isSelected}">{{filterBase.label | titlecase}}</span>
               </li>
             </ul>
           </div>
@@ -35,15 +35,16 @@
             <table>
               <tr>
                 <td><strong>Launch Year: </strong></td>
-                <td class="launch-info"><span *ngIf="list.launch_year; else dash">{{list.launch_year}}</span></td>
+                <td class="launch-info"><span *ngIf="list.launch_year; else dash"> {{list.launch_year}}</span></td>
               </tr>
               <tr>
                 <td><strong>Successful Launch: </strong></td>
-                <td class="launch-info"><span *ngIf="list.launch_success;else dash">{{list.launch_success}}</span></td>
+                <td class="launch-info"><span>{{list.launch_success}}</span></td>
               </tr>
               <tr>
                 <td><strong>Successful Landing: </strong></td>
-                <td class="launch-info"><span *ngIf="list.rocket.first_stage.cores[0].land_success;else dash"></span>{{list.rocket.first_stage.cores[0].land_success}}</td>
+                <td class="launch-info"><span>{{list.rocket.first_stage.cores[0].land_success}}</span>
+                </td>
               </tr>
             </table>
           </div>

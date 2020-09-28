@@ -35,6 +35,24 @@ export class SpaceXComponent implements OnInit {
       launch_success: '',
       land_success: ''
     };
+
+    /* if (localStorage.filter !== undefined) {
+      let filterData = JSON.parse(localStorage.getItem('filter'));
+
+      let success_launch = filterData.
+      this.filterData.map(data => {
+        if (data.type === type) {
+          data.filterBase.map(data1 => {
+            data1.isSelected = false;
+            if (value === data1.value) {
+              data1.isSelected = true;
+            }
+            return data1;
+          });
+        }
+        return data;
+      });
+    } */
     console.log(' this.url', this.url);
     this.getSpaceXData();
   }
@@ -50,6 +68,20 @@ export class SpaceXComponent implements OnInit {
     this.selectedFilter = value;
     this.selectedFilterType = type;
     this.queryParam[type] = value;
+
+    // highlight filter label
+    this.filterData.map(data => {
+      if (data.type === type) {
+        data.filterBase.map(data1 => {
+          data1.isSelected = false;
+          if (value === data1.value) {
+            data1.isSelected = true;
+          }
+          return data1;
+        });
+      }
+      return data;
+    });
     this.getSpaceXData();
   }
 
@@ -62,15 +94,22 @@ export class SpaceXComponent implements OnInit {
    */
   public getSpaceXData(): void {
     let url = '';
+    let urlRecord = {};
     if (this.queryParam.launch_success) {
       url = url + '&launch_success=' + this.queryParam.launch_success;
+      urlRecord['launch_success'] = this.queryParam.launch_success;
     }
     if (this.queryParam.land_success) {
       url = url + '&land_success=' + this.queryParam.land_success;
+      urlRecord['land_success'] = this.queryParam.land_success;
     }
     if (this.queryParam.launch_year) {
       url = url + '&launch_year=' + this.queryParam.launch_year;
+      urlRecord['launch_year'] = this.queryParam.launch_year;
     }
+
+    localStorage.setItem('filter', JSON.stringify(urlRecord));
+
     if (url) {
       this.router.navigate(['spaceX'], { queryParams: { url: url ? url : this.url } });
     }
