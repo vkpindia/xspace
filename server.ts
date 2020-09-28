@@ -2,19 +2,19 @@ import 'zone.js/dist/zone-node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
-import * as path from 'path';
+// import * as path from 'path';
 import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
-
+/*
 const app1 = express();
 app1.use(express.static(__dirname + '/dist/xspace/browser'));
 app1.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname + '/dist/xspace/browser/index.html'));
 });
-
+ */
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
