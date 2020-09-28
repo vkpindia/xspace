@@ -35,15 +35,15 @@
             <table>
               <tr>
                 <td><strong>Launch Year: </strong></td>
-                <td class="launch-info">{{list.launch_success}}</td>
+                <td class="launch-info"><span *ngIf="list.launch_year; else dash">{{list.launch_year}}</span></td>
               </tr>
               <tr>
                 <td><strong>Successful Launch: </strong></td>
-                <td class="launch-info">{{list.launch_success}}</td>
+                <td class="launch-info"><span *ngIf="list.launch_success;else dash">{{list.launch_success}}</span></td>
               </tr>
               <tr>
                 <td><strong>Successful Landing: </strong></td>
-                <td class="launch-info"> {{list.launch_year}}</td>
+                <td class="launch-info"><span *ngIf="list.rocket.first_stage.cores[0].land_success;else dash"></span>{{list.rocket.first_stage.cores[0].land_success}}</td>
               </tr>
             </table>
           </div>
@@ -51,4 +51,13 @@
       </ng-container>
     </div>
   </div>
+  <div class="footer" style="padding-top:20px; text-align: center;">
+    <footer>
+      <strong>Developed by: </strong>
+      Virendra Pandey
+    </footer>
+  </div>
 </div>
+
+
+<ng-template #dash>---</ng-template>
